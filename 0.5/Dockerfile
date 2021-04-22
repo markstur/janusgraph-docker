@@ -84,7 +84,7 @@ WORKDIR ${JANUS_HOME}
 USER janusgraph
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD [ "janusgraph" ]
+CMD [ "openshift" ]
 
 LABEL org.opencontainers.image.title="JanusGraph Docker Image" \
       org.opencontainers.image.description="Official JanusGraph Docker image" \
