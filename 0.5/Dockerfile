@@ -70,9 +70,9 @@ RUN chmod 755 /usr/local/bin/docker-entrypoint.sh && \
     chmod 755 /usr/local/bin/load-initdb.sh && \
     chmod 755 /usr/bin/yq && \
     mkdir -p ${JANUS_INITDB_DIR} ${JANUS_CONFIG_DIR} ${JANUS_DATA_DIR} && \
-    chgrp :0 ${JANUS_INITDB_DIR} ${JANUS_CONFIG_DIR} ${JANUS_DATA_DIR} && \
+    chgrp 0 ${JANUS_INITDB_DIR} ${JANUS_CONFIG_DIR} ${JANUS_DATA_DIR} && \
     chmod 775 ${JANUS_INITDB_DIR} ${JANUS_CONFIG_DIR} ${JANUS_DATA_DIR} && \
-    chgrp -R :0 ${JANUS_HOME}
+    chgrp -R 0 ${JANUS_HOME}
 
 EXPOSE 8182
 
