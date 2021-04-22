@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 # NOTE: THIS FILE IS GENERATED VIA "update.sh"
 # DO NOT EDIT IT DIRECTLY; CHANGES WILL BE OVERWRITTEN.
