@@ -77,11 +77,11 @@ RUN chmod 755 /usr/local/bin/docker-entrypoint.sh && \
 EXPOSE 8182
 
 WORKDIR ${JANUS_HOME}
-# USER janusgraph
+USER janusgraph
 
 # Just don't run as root or janusgraph (for openshift)
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD [ "openshift" ]
+CMD [ "janusgraph" ]
 
 LABEL org.opencontainers.image.title="JanusGraph Docker Image" \
       org.opencontainers.image.description="Official JanusGraph Docker image" \
