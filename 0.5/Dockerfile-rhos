@@ -16,7 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM debian:buster-slim as builder
+# FROM debian:buster-slim as builder
+FROM quay.io/ibmgaragecloud/maven:3.6.3-jdk-11-slim as builder
 
 ARG JANUS_VERSION=0.5.3
 ARG YQ_VERSION=3.4.1
