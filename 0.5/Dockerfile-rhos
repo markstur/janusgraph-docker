@@ -17,7 +17,8 @@
 # limitations under the License.
 
 # FROM debian:buster-slim as builder
-FROM quay.io/ibmgaragecloud/maven:3.6.3-jdk-11-slim as builder
+# FROM quay.io/ibmgaragecloud/maven:3.6.3-jdk-11-slim as builder
+FROM registry.access.redhat.com/ubi8/openjdk-8:1.3-12 as builder
 
 ARG JANUS_VERSION=0.5.3
 ARG YQ_VERSION=3.4.1
@@ -32,7 +33,7 @@ RUN apt update -y && apt install -y gpg unzip curl && \
     curl -fSL https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -o yq && \
     unzip source.zip && \
     cd demo-db-* && \
-    mvn clean install -Pjanusgraph-release -Dgpg.skip=true -DskipTests=true && \
+    mvn clean install -Pjanusgraph-release -Dgpg.skip=true -Drat.skip=true -DskipTests=true && \
     ls target && \
     mv janusgraph-${JANUS_VERSION} /opt/janusgraph && \
     rm -rf ${JANUS_HOME}/elasticsearch && \
