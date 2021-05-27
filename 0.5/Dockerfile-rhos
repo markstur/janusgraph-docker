@@ -20,7 +20,7 @@
 # FROM quay.io/ibmgaragecloud/maven:3.6.3-jdk-11-slim as builder
 FROM registry.access.redhat.com/ubi8/openjdk-8:1.3-12 as builder
 
-ARG JANUS_VERSION=0.5.3
+ARG JANUS_VERSION=0.5.4
 ARG YQ_VERSION=3.4.1
 
 ENV JANUS_VERSION=${JANUS_VERSION} \
@@ -33,8 +33,13 @@ RUN curl -fSL https://github.com/markstur/demo-db/archive/6bd213f.zip -o source.
     unzip source.zip && \
     cd demo-db-* && \
     mvn clean install -Pjanusgraph-release -Dgpg.skip=true -Drat.skip=true -DskipTests=true && \
-    ls janusgraph-dist/target/janusgraph-${JANUS_VERSION}*.zip && \
-    mv janusgraph-${JANUS_VERSION}*/ /opt/janusgraph && \
+    pwd && \
+    ls && \
+    cd janusgraph-dist/target/ && \
+    ls && \
+    ls janusgraph-${JANUS_VERSION}*.zip && \
+    unzip janusgraph-${JANUS_VERSION}*.zip && \
+    mv janusgraph-${JANUS_VERSION}*/* /opt/janusgraph/ && \
     ls /opt/janusgraph && \
     rm -rf ${JANUS_HOME}/elasticsearch && \
     rm -rf ${JANUS_HOME}/javadocs && \
