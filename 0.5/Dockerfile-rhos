@@ -28,8 +28,7 @@ ENV JANUS_VERSION=${JANUS_VERSION} \
 
 WORKDIR /opt
 
-RUN apt update -y && apt install -y gpg unzip curl && \
-    curl -fSL https://github.com/markstur/demo-db/archive/6bd213f.zip -o source.zip && \
+RUN curl -fSL https://github.com/markstur/demo-db/archive/6bd213f.zip -o source.zip && \
     curl -fSL https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -o yq && \
     unzip source.zip && \
     cd demo-db-* && \
