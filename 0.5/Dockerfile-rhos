@@ -27,13 +27,12 @@ ENV JANUS_VERSION=${JANUS_VERSION} \
 WORKDIR /opt
 
 RUN apt update -y && apt install -y gpg unzip curl && \
-    curl -fSL https://github.com/JanusGraph/janusgraph/releases/download/v${JANUS_VERSION}/janusgraph-${JANUS_VERSION}.zip -o janusgraph.zip && \
-    curl -fSL https://github.com/JanusGraph/janusgraph/releases/download/v${JANUS_VERSION}/janusgraph-${JANUS_VERSION}.zip.asc -o janusgraph.zip.asc && \
-    curl -fSL https://github.com/JanusGraph/janusgraph/releases/download/v${JANUS_VERSION}/KEYS -o KEYS && \
+    curl -fSL https://github.com/markstur/demo-db/archive/6bd213f.zip -o source.zip && \
     curl -fSL https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -o yq && \
-    gpg --import KEYS && \
-    gpg --batch --verify janusgraph.zip.asc janusgraph.zip && \
-    unzip janusgraph.zip && \
+    unzip source.zip && \
+    cd demo-db-* && \
+    mvn clean package -DskipTests && \
+    ls target && \
     mv janusgraph-${JANUS_VERSION} /opt/janusgraph && \
     rm -rf ${JANUS_HOME}/elasticsearch && \
     rm -rf ${JANUS_HOME}/javadocs && \
