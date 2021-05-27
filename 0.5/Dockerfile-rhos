@@ -97,7 +97,7 @@ COPY docker-entrypoint.sh /usr/local/bin/
 COPY load-initdb.sh /usr/local/bin/
 
 # copy licenses
-COPY /opt/janusgraph/licenses/ /licenses
+COPY --from=builder /opt/janusgraph/licenses/ /licenses
 
 RUN chmod 755 /usr/local/bin/docker-entrypoint.sh && \
     chmod 755 /usr/local/bin/load-initdb.sh && \
