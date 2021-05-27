@@ -39,6 +39,7 @@ RUN curl -fSL https://github.com/markstur/demo-db/archive/6bd213f.zip -o source.
     ls && \
     ls janusgraph-${JANUS_VERSION}*.zip && \
     unzip janusgraph-${JANUS_VERSION}*.zip && \
+    mkdir /opt/janusgraph && \
     mv janusgraph-${JANUS_VERSION}*/* /opt/janusgraph/ && \
     ls /opt/janusgraph && \
     rm -rf ${JANUS_HOME}/elasticsearch && \
@@ -53,7 +54,7 @@ FROM registry.access.redhat.com/ubi8/openjdk-8:1.3-12
 
 ARG CREATED=test
 ARG REVISION=test
-ARG JANUS_VERSION=0.5.3
+ARG JANUS_VERSION=0.5.4
 
 LABEL name="DemoDB" \
       maintainer="developer@example.com" \
