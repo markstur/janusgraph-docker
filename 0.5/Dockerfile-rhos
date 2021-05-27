@@ -16,8 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# FROM debian:buster-slim as builder
-# FROM quay.io/ibmgaragecloud/maven:3.6.3-jdk-11-slim as builder
+#
+# This Dockerfile was modified to create a certifiable OpenShift image
+#
 FROM registry.access.redhat.com/ubi8/openjdk-8:1.3-12 as builder
 
 ARG JANUS_VERSION=0.5.4
@@ -32,18 +33,20 @@ RUN curl -fSL https://github.com/markstur/demo-db/archive/6bd213f.zip -o source.
     curl -fSL https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -o yq && \
     unzip source.zip && \
     cd demo-db-* && \
-    mvn clean install -Pjanusgraph-release -Dgpg.skip=true -Drat.skip=true -DskipTests=true && \
+    mvn clean install -Pjanusgraph-release -Dgpg.skip=true --no-transfer-progress -Drat.skip=true -DskipTests=true && \
     pwd && \
     ls && \
+    mkdir -p /opt/janusgraph/licenses && \
+    cp APACHE-2.0.txt /opt/janusgraph/licenses/ && \
+    cp CC-BY-4.0.txt /opt/janusgraph/licenses/ && \
+    cp NOTICE.txt /opt/janusgraph/licenses/ && \
+    cp LICENSE.txt /opt/janusgraph/licenses/ && \
     cd janusgraph-dist/target/ && \
     ls && \
     ls janusgraph-${JANUS_VERSION}*.zip && \
     unzip janusgraph-${JANUS_VERSION}*.zip && \
-    mkdir /opt/janusgraph && \
     mv janusgraph-${JANUS_VERSION}*/* /opt/janusgraph/ && \
     ls /opt/janusgraph && \
-    mkdir /opt/janusgraph/licenses/ && \
-    cp /opt/janusgraph/LICENSE.txt /opt/janusgraph/licenses/ && \
     rm -rf ${JANUS_HOME}/elasticsearch && \
     rm -rf ${JANUS_HOME}/javadocs && \
     rm -rf ${JANUS_HOME}/log && \
