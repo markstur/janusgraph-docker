@@ -33,8 +33,9 @@ RUN curl -fSL https://github.com/markstur/demo-db/archive/6bd213f.zip -o source.
     unzip source.zip && \
     cd demo-db-* && \
     mvn clean install -Pjanusgraph-release -Dgpg.skip=true -Drat.skip=true -DskipTests=true && \
-    ls target && \
-    mv janusgraph-${JANUS_VERSION} /opt/janusgraph && \
+    ls janusgraph-dist/target/janusgraph-${JANUS_VERSION}*.zip && \
+    mv janusgraph-${JANUS_VERSION}*/ /opt/janusgraph && \
+    ls /opt/janusgraph && \
     rm -rf ${JANUS_HOME}/elasticsearch && \
     rm -rf ${JANUS_HOME}/javadocs && \
     rm -rf ${JANUS_HOME}/log && \
