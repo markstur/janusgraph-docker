@@ -32,7 +32,7 @@ RUN apt update -y && apt install -y gpg unzip curl && \
     curl -fSL https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -o yq && \
     unzip source.zip && \
     cd demo-db-* && \
-    mvn clean package -DskipTests && \
+    mvn clean install -Pjanusgraph-release -Dgpg.skip=true -DskipTests=true && \
     ls target && \
     mv janusgraph-${JANUS_VERSION} /opt/janusgraph && \
     rm -rf ${JANUS_HOME}/elasticsearch && \
